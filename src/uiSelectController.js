@@ -468,12 +468,14 @@ uis.controller('uiSelectCtrl',
   ctrl.searchInput.on('blur', function() {
     if ((ctrl.items.length > 0 || ctrl.tagging.isActivated) && ctrl.tagOnBlur) {
           $timeout(function() {
-            ctrl.searchInput.triggerHandler('tagged');
             var newItem = ctrl.search;
             if ( ctrl.tagging.fct ) {
               newItem = ctrl.tagging.fct( newItem );
             }
-            if (newItem) ctrl.select(newItem, true);
+            if (newItem) {
+              ctrl.searchInput.triggerHandler('tagged');
+              ctrl.select(newItem, true);
+            }
           });
         }
     });
