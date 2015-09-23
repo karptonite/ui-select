@@ -56,7 +56,7 @@ uis.directive('uiSelectMultiple', ['uiSelectMinErr','$timeout', function(uiSelec
 
       ctrl.getPlaceholder = function(){
         //Refactor single?
-        if($select.selected && $select.selected.length) return;
+        if($select.selected && $select.selected.length && !$select.hideTags) return;
         return $select.placeholder;
       };
 

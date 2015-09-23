@@ -23,6 +23,13 @@ uis.directive('uiSelectMatch', ['uiSelectConfig', function(uiSelectConfig) {
       attrs.$observe('allowClear', setAllowClear);
       setAllowClear(attrs.allowClear);
 
+      function setHideTags(hideTags) {
+        $select.hideTags = (angular.isDefined(hideTags)) ? (hideTags === '') ? false : (hideTags.toLowerCase() === 'true') : false;
+      }
+
+      attrs.$observe('hideTags', setHideTags);
+      setAllowClear(attrs.hideTags);
+
       if($select.multiple){
         $select.sizeSearchInput();
       }
