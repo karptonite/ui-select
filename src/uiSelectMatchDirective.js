@@ -28,7 +28,7 @@ uis.directive('uiSelectMatch', ['uiSelectConfig', function(uiSelectConfig) {
       }
 
       attrs.$observe('hideTags', setHideTags);
-      setAllowClear(attrs.hideTags);
+      setHideTags(attrs.hideTags);
 
       if($select.multiple){
         $select.sizeSearchInput();
