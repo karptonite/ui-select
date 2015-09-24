@@ -71,6 +71,14 @@ uis.directive('uiSelect',
             $select.sortable = sortable !== undefined ? sortable : uiSelectConfig.sortable;
         });
 
+        function setForceOptionsDown(forceOptionsDown) {
+          $select.forceOptionsDown = 
+            (angular.isDefined(forceOptionsDown)) ? (forceOptionsDown === '') ? false : (forceOptionsDown.toLowerCase() === 'true') : false;
+        }
+
+        attrs.$observe('forceOptionsDown', setForceOptionsDown);
+        setForceOptionsDown(attrs.forceOptionsDown);
+
         attrs.$observe('disabled', function() {
           // No need to use $eval() (thanks to ng-disabled) since we already get a boolean instead of a string
           $select.disabled = attrs.disabled !== undefined ? attrs.disabled : false;
@@ -284,7 +292,7 @@ uis.directive('uiSelect',
               var offsetDropdown = uisOffset(dropdown);
 
               // Determine if the direction of the dropdown needs to be changed.
-              if (offset.top + offset.height + offsetDropdown.height > $document[0].documentElement.scrollTop + $document[0].documentElement.clientHeight) {
+              if (!$select.forceOptionsDown && offset.top + offset.height + offsetDropdown.height > $document[0].documentElement.scrollTop + $document[0].documentElement.clientHeight) {
                 dropdown[0].style.position = 'absolute';
                 dropdown[0].style.top = (offsetDropdown.height * -1) + 'px';
                 element.addClass(directionUpClassName);
